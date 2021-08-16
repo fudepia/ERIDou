@@ -15,8 +15,19 @@
 
 %The authors can define any packages after the \documentclass{ptephy_v1} command.
 
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{ifxetex}
+\ifxetex
+\usepackage{xeCJK}
+\xeCJKsetup{CJKmath=true}
+\newcommand{\jp}[1]{#1}
+\else
 %\usepackage[T1]{CJKutf8}
 \usepackage[whole]{bxcjkjatype}
+\newcommand{\jp}[1]{\text{#1}}
+\fi
 
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -58,11 +69,31 @@
 
 
 \section{Regarding Special Relativity}
-So first let the real velocity \(v_\text{リ}\), whom maintains the linear properties of traditional non-relativistic velocity.
+So first let the real velocity \(v_リ\), whom maintains the linear properties of traditional non-relativistic velocity.
 
+
+Linear to non-linear (relativistic) velocity:
 \begin{equation}
-    v_S=\frac{v_\text{リ}\text{エ}_S\text{リ}}{\text{エ}_SS}
+    v_S=\frac{v_\jp{リ}\jp{エ}_S\jp{リ}}{\jp{エ}_SS}=v_\jp{リ}\jp{エ}_S\jp{リ}
 \end{equation}
+
+\subsection{Constant force/acceleration}
+Let a point located at origin, with initial velocity $v(0)=0$.
+\begin{subequations}
+    \begin{equation}
+        a_\jp{ヒ}(v, F, m_{rest})=\frac{F}{m_{rest}}\sqrt{1-\frac{v^2}{c^2}}^3
+    \end{equation}
+    \begin{equation}
+        a_\jp{リ}(t)=k
+    \end{equation}
+    \begin{equation}
+        v_\jp{ヒ}(t)=v_\jp{リ}\jp{エ}_S\jp{リ}=kt\jp{エ}_S\jp{リ}
+    \end{equation}
+    \begin{equation}
+        v_\jp{ヒ}(t)=\int \frac{F}{m_{rest}}\sqrt{1-\frac{v_\jp{ヒ}(t)^2}{c^2}}^3
+    \end{equation}
+\end{subequations}
+
 
 \section{Model of Particles}
 
