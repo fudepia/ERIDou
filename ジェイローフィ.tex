@@ -15,6 +15,9 @@
 
 %The authors can define any packages after the \documentclass{ptephy_v1} command.
 
+%\usepackage[T1]{CJKutf8}
+\usepackage[whole]{bxcjkjatype}
+
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{hyperref}
@@ -22,6 +25,8 @@
 %\usepackage{algorithmic} for describing algorithms
 %\usepackage{subfig} for getting the subfigures e.g., "Figure 1a and 1b" etc.
 \usepackage{url}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
 
 %The author can find the documentation of additional supporting files from "http://www.ctan.org"
 
@@ -31,6 +36,7 @@
 \newtheorem{condition}{Condition}
 
 \begin{document}
+%\begin{CJK}{UTF8}{ipxm}
 
 \title{Joint Research of Optics and Fluid Interface}
 
@@ -40,9 +46,9 @@
 \affil{\email{fudepia@outlook.jp}}
 
 \begin{abstract}
-The abstract text goes here. The abstract text goes here. The abstract text goes here.
-The abstract text goes here. The abstract text goes here. The abstract text goes here.
-The abstract text goes here. The abstract text goes here. The abstract text goes here.
+    The abstract text goes here. The abstract text goes here. The abstract text goes here.
+    The abstract text goes here. The abstract text goes here. The abstract text goes here.
+    The abstract text goes here. The abstract text goes here. The abstract text goes here.
 \end{abstract}
 
 
@@ -51,7 +57,67 @@ The abstract text goes here. The abstract text goes here. The abstract text goes
 \maketitle
 
 
-\section{Insert A head here}
+\section{Regarding Special Relativity}
+So first let the real velocity \(v_\text{リ}\), whom maintains the linear properties of traditional non-relativistic velocity.
+
+\begin{equation}
+    v_S=\frac{v_\text{リ}\text{エ}_S\text{リ}}{\text{エ}_SS}
+\end{equation}
+
+\section{Model of Particles}
+
+\begin{tikzpicture}[scale=.8,every node/.style={minimum size=1cm},on grid]
+    %
+    \begin{scope}[
+            yshift=-83,every node/.append style={
+                yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        \draw[step=4mm, black] (0,0) grid (5,5);
+        \draw[black,thick] (0,0) rectangle (5,5);%borders
+    \end{scope}
+    %
+    \begin{scope}[
+            yshift=0,every node/.append style={
+                yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        \fill[white,fill opacity=0.9] (0,0) rectangle (5,5);
+        \draw[step=4mm, black] (0,0) grid (5,5); %grid definition
+        \draw[black,thick] (0,0) rectangle (5,5);%borders
+    \end{scope}
+    %
+    \begin{scope}[
+            yshift=83,every node/.append style={
+                yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        \fill[white,fill opacity=0.9] (0,0) rectangle (5,5);
+        \draw[step=4mm, black] (0,0) grid (5,5);
+        \draw[black,thick] (0,0) rectangle (5,5);%borders
+    \end{scope}
+    %
+    \begin{scope}[
+            yshift=166,every node/.append style={
+                yslant=0.5,xslant=-1},yslant=0.5,xslant=-1
+        ]
+        \fill[white,fill opacity=0.9] (0,0) rectangle (5,5);
+        \draw[step=4mm, black] (0,0) grid (5,5);
+        \draw[black,thick] (0,0) rectangle (5,5);%borders
+    \end{scope}
+    %
+    \draw[thick,gray!70!black](5,7) node (Mu) {Mu};
+    \draw[thick,gray!70!black](5,4) node (Ko) {Ko};
+    \draw[thick,gray!70!black](5,1) node (Fu) {Fu};
+    \draw[thick,cyan](-5,4) node[left] (Type) {d};
+    \draw
+    (Type) edge[cyan,thick,-latex,out=70,in=-245] (0,4.5)
+    (Type) edge[cyan,thick,-latex,out=-12,in=154] (0,1.7)
+    (Type) edge[cyan,thick,-latex,out=-70,in=170] (0,-1.4);
+    \draw[thick,gray!70!black](5,-2) node (Mi) {Mi};
+    \draw
+    (Fu) edge[bend left,-{Latex[length=2mm]}] node [right] {Project} (Mi)
+    (Ko) edge[bend right,-{Latex[length=2mm]}] node [right] {Converge} (Mu)
+    (Fu) edge[bend right,-{Latex[length=2mm]}] node [right] {?} (Ko);
+    %
+\end{tikzpicture}
 
 
 
@@ -73,10 +139,6 @@ Insert the Acknowledgment text here.
 %
 % once the .bbl file has been generated then place the text in your article.
 
-\vspace{0.2cm}
-\noindent
-For references,  note how to include DOI information from examples below. 
-
 %This is added by T. Yoneya (editor-in-chief) on 2020/07/09.
 
 \let\doi\relax
@@ -85,19 +147,8 @@ For references,  note how to include DOI information from examples below.
 
 \begin{thebibliography}{9}
 
-\bibitem{1}
-J. P.~Blaizot, and E.~Iancu, Phys. Rep. {\bf 359}, 355 (2002).
-\doi{https://doi.org/10.1016/S0370-1573(01)00061-8}
-
-\bibitem{2}
-M.~Gyulassy, and L.~McLerran, Nucl.\ Phys.\  A {\bf 750}, 30 (2005). \\ \doi{https://doi.org/10.1016/j.nuclphysa.2004.10.034}
-
-\bibitem{3}
-S.~Aoki et al. [JLQCD Collaboration], Phys. Rev. D 72, 054510 (2005). \\
-\doi{https://doi.org/10.1103/PhysRevD.72.05451}
-
-\bibitem{4}
-S.~Alekhin, A.~Djouadi, and S.~Moch, Phys. Lett. B 716, 214 (2012) [arXiv:1207.0980 [hep-ph]]. \doi{https://doi.org/10.1016/j.physletb.2012.08.024}
+    \bibitem{mucoe}
+        \url{https://www.mail-archive.com/dou-geometry@googlegroups.com/msg00004/____________-___________________________.docx}
 
 \end{thebibliography}
 
@@ -107,4 +158,5 @@ S.~Alekhin, A.~Djouadi, and S.~Moch, Phys. Lett. B 716, 214 (2012) [arXiv:1207.0
 
 
 
+%\end{CJK}
 \end{document}
