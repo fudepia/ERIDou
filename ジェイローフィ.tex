@@ -67,7 +67,63 @@
 
 \maketitle
 
+\section{Setup}
 
+Let $\Delta$ be the total width the light travels with path not being straight, hence:
+
+\begin{equation}
+\forall x\notin[-\frac{\Delta}{2}, \frac{\Delta}{2}]: \frac{d^2}{dx^2}y=0
+\end{equation}
+
+Now define the light ray incoming from left-hand side towards right-hand side and (suppose transition layers' width approaches zero) refracs at origin. And let $h$ be the thickness of the transition layers.
+
+Now let's assume the incoming transition layer has the same thickness as outbounding transition layer, hence we get:
+
+\begin{equation}
+\Delta=\frac{h}{2}(\tan\theta_{in}+\tan\theta_{out})
+\end{equation}
+
+Now we can first confirm our path function is a function of $\theta_{in}, \theta_{out}, h$
+
+\begin{equation}
+P(\theta_{in}, \theta_{out}, h)=
+\end{equation}
+
+
+
+\newpage
+\section{Finding path}
+\subsection{Constructing Layers}
+Let function $v(\theta_{in}, \theta_{out}, \Delta, \delta)$ be the velocity of layer $\delta$ (from the entry interface), whose entry velocity is $\theta_{in}$, exit velocity is be $\theta_{out}$, and the whole layer thickness is $\Delta$.\footnote{Here we suppose every layer paraelles}
+
+%\begin{equation}
+%\frac{v(\theta_{in}, \theta_{out}, \Delta, 0)}{v(\theta_{in}, \theta_{out}, \Delta, \Delta)}=\frac{\sin(\theta_{in})}{\sin(\theta_{out})}
+%\end{equation}
+
+\begin{subequations}
+\begin{equation}
+a=v(x, y, \beta-\alpha, \alpha)
+\end{equation}
+\begin{equation}
+b=v(x, y, \beta-\alpha, \beta)
+\end{equation}
+\begin{equation}
+\alpha\leq\beta
+\end{equation}
+\end{subequations}
+
+Let $a=v(x, y, \alpha)$ and $b=v(x, y, \beta)$ ($\alpha\leq\beta$), $\forall p\in[\alpha, \beta]: v(a, b, p-\alpha)=v(x, y, p)$
+
+\subsection{Fractal Structure}
+\begin{equation}
+    \text{Let }P(\theta_{in}, \theta_{out}, h)\text{ be the path taken}
+\end{equation}
+\begin{equation}
+    P(\theta_{in\to\alpha}, \alpha)=P(\theta_{in}, \theta_{\alpha}
+\end{equation}
+
+
+\newpage
 \section{Regarding Special Relativity}
 So first let the real velocity \(v_リ\), whom maintains the linear properties of traditional non-relativistic velocity.
 
