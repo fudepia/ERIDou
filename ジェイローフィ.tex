@@ -105,6 +105,11 @@ assume(0<thetaprime, thetaprime<pi/2)
 
 And now we could try to solve functions like $y(x)$ from parametric bezier curve:
 
+\begin{sageblock}
+# x(t)=(t-1)^2*tan(theta)*hh*-1+t^2*tan(thetaprime)*hh
+y=(t-1)^2*hh-t^2*hh
+\end{sageblock}
+
 First we try to find $t(x)$
 \begin{sageverbatim}
 # Solving t(x)
@@ -121,6 +126,8 @@ Where we get two solutions and only the first satisfied our assumptions, hence:
 \begin{sageblock}
 t(x)=(h*tan(theta) - sqrt(h^2*tan(theta)*tan(thetaprime) - 2*(h*tan(theta) - h*tan(thetaprime))*x))/(h*tan(theta) - h*tan(thetaprime))
 \end{sageblock}
+And substituting back to $y(t)$ we could get
+\y(t=t)}
 
 
 \newpage
