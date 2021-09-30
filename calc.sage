@@ -21,14 +21,17 @@ x=var("x")
 # y=var("y")
 assume(tan(theta)*hh*-1<=x, x<=tan(phi)*hh)
 assume(0<=t, t<=1)
-tx=solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(phi)*hh==x, t)[1].rhs()
-"""
+
 for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(phi)*hh==x, t):
     print(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, phi=0.4))
     print(res.rhs()(x=tan(phi)*hh)(h=2, theta=0.2, phi=0.4))
     print(res)
     print()
-"""
+result=[]    
+[((abs(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, phi=0.4))<1e-12 and abs(res.rhs()(x=tan(phi)*hh)(h=2, theta=0.2, phi=0.4)-1)<1e-12) and result.append(res)) for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(phi)*hh==x, t)]
+tx=result[0] if len(result)==1 else None
+show(tx)
+
 # solve((t-1)^2*hh-t^2*hh==y, t)
 # print((t-1)^2*tan(theta)*hh+t^2*tan(phi)*hh)
 
