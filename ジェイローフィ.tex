@@ -113,7 +113,10 @@ y=(t-1)^2*hh-t^2*hh
 First we try to find $t(x)$
 \begin{sageblock}
 result=[]    
-[((abs(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, phi=0.4))<1e-12 and abs(res.rhs()(x=tan(phi)*hh)(h=2, theta=0.2, phi=0.4)-1)<1e-12) and result.append(res)) for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(phi)*hh==x, t)]
+[((abs(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, phi=0.4))<1e-12 and
+ abs(res.rhs()(x=tan(phi)*hh)(h=2, theta=0.2, phi=0.4)-1)<1e-12) and
+ result.append(res))
+ for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(phi)*hh==x, t)]
 t=result[0].rhs() if len(result)==1 else None
 \end{sageblock}
 Where we get two solutions and only one will satisfied our assumptions (the first print is $0$ and the second yields $1$\footnote{Here we use $EPS=1e-12$ as we're testing it with arbritarily chosen values which makes them no longer symbolic.}), which is:
