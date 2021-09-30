@@ -96,17 +96,17 @@ First setup the environment
 \begin{sageblock}
 h, t=var("h t")
 hh=h/2
-theta, thetaprime=var("theta thetaprime")
+theta, phi=var("theta phi")
 assume(h, "constant")
 assume(h>0)
 assume(0<theta, theta<pi/2)
-assume(0<thetaprime, thetaprime<pi/2)
+assume(0<phi, phi<pi/2)
 \end{sageblock}
 
 And now we could try to solve functions like $y(x)$ from parametric bezier curve:
 
 \begin{sageblock}
-# x(t)=(t-1)^2*tan(theta)*hh*-1+t^2*tan(thetaprime)*hh
+# x(t)=(t-1)^2*tan(theta)*hh*-1+t^2*tan(phi)*hh
 y=(t-1)^2*hh-t^2*hh
 \end{sageblock}
 
@@ -118,11 +118,11 @@ t=result[0].rhs() if len(result)==1 else None
 \end{sageblock}
 Where we get two solutions and only one will satisfied our assumptions (the first print is $0$ and the second yields $1$\footnote{Here we use $EPS=1e-12$ as we're testing it with arbritarily chosen values which makes them no longer symbolic.}), which is:
 
-\sage{t}
+$\sage{t}$
 
 And substituting back to $y(t)$ we could get
 
-\sage{y(t=t)}
+$\sage{y(t=t)}$
 
 
 \newpage
