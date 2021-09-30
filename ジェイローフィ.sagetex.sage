@@ -7,37 +7,38 @@ _st_.blockbegin()
 try:
  h, t=var("h t")
  hh=h/2
- theta, phi=var("theta phi")
+ theta=var("theta")
+ tprime=var("tprime", latex_name=r"\theta^\prime")
  assume(h, "constant")
  assume(h>0)
  assume(0<theta, theta<pi/2)
- assume(0<phi, phi<pi/2)
+ assume(0<tprime, tprime<pi/2)
 except:
- _st_.goboom(104)
+ _st_.goboom(105)
 _st_.blockend()
-_st_.current_tex_line = 108
+_st_.current_tex_line = 109
 _st_.blockbegin()
 try:
- # x(t)=(t-1)^2*tan(theta)*hh*-1+t^2*tan(phi)*hh
+ # x(t)=(t-1)^2*tan(theta)*hh*-1+t^2*tan(tprime)*hh
  y=(t-1)^2*hh-t^2*hh
 except:
- _st_.goboom(111)
+ _st_.goboom(112)
 _st_.blockend()
-_st_.current_tex_line = 114
+_st_.current_tex_line = 115
 _st_.blockbegin()
 try:
  result=[]
- [((abs(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, phi=0.4))<1e-12 and
-  abs(res.rhs()(x=tan(phi)*hh)(h=2, theta=0.2, phi=0.4)-1)<1e-12) and
+ [((abs(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, tprime=0.4))<1e-12 and
+  abs(res.rhs()(x=tan(tprime)*hh)(h=2, theta=0.2, tprime=0.4)-1)<1e-12) and
   result.append(res))
-  for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(phi)*hh==x, t)]
+  for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(tprime)*hh==x, t)]
  t=result[0].rhs() if len(result)==1 else None
 except:
- _st_.goboom(121)
+ _st_.goboom(122)
 _st_.blockend()
 try:
- _st_.current_tex_line = 124
+ _st_.current_tex_line = 125
  _st_.inline(0, latex(t))
 except:
- _st_.goboom(124)
+ _st_.goboom(125)
 _st_.endofdoc()
