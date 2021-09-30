@@ -28,11 +28,9 @@ for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(phi)*hh==x, t):
     print(res)
     print()
 result=[]    
-[(bool(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, phi=0.4)+1==res.rhs()(x=tan(phi)*hh)(h=2, theta=0.2, phi=0.4)) and result.append(res)) for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(phi)*hh==x, t)]
-#tx=result[0].rhs() if len(result)==1 else None
-#show(result[0])
-print(result)
-sys.exit()
+[((abs(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, phi=0.4))<1e-12 and abs(res.rhs()(x=tan(phi)*hh)(h=2, theta=0.2, phi=0.4)-1)<1e-12) and result.append(res)) for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(phi)*hh==x, t)]
+tx=result[0].rhs() if len(result)==1 else None
+show(result[0])
 
 # solve((t-1)^2*hh-t^2*hh==y, t)
 # print((t-1)^2*tan(theta)*hh+t^2*tan(phi)*hh)
