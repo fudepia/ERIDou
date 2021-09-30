@@ -111,23 +111,18 @@ y=(t-1)^2*hh-t^2*hh
 \end{sageblock}
 
 First we try to find $t(x)$
-\begin{sageverbatim}
-# Solving t(x)
-x, y=var("x y")
-assume(tan(theta)*hh*-1<=x, x<=tan(thetaprime)*hh)
-assume(0<=t, t<=1)
-for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(thetaprime)*hh==x, t):
-    print(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, thetaprime=0.4))
-    print(res.rhs()(x=tan(thetaprime)*hh)(h=2, theta=0.2, thetaprime=0.4))
-    print(res)
-    print()
-\end{sageverbatim}
-Where we get two solutions and only the first satisfied our assumptions, hence:
 \begin{sageblock}
-t(x)=(h*tan(theta) - sqrt(h^2*tan(theta)*tan(thetaprime) - 2*(h*tan(theta) - h*tan(thetaprime))*x))/(h*tan(theta) - h*tan(thetaprime))
+result=[]    
+[((abs(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, phi=0.4))<1e-12 and abs(res.rhs()(x=tan(phi)*hh)(h=2, theta=0.2, phi=0.4)-1)<1e-12) and result.append(res)) for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(phi)*hh==x, t)]
+t=result[0].rhs() if len(result)==1 else None
 \end{sageblock}
+Where we get two solutions and only one will satisfied our assumptions (the first print is $0$ and the second yields $1$\footnote{Here we use $EPS=1e-12$ as we're testing it with arbritarily chosen values which makes them no longer symbolic.}), which is:
+
+\sage{t}
+
 And substituting back to $y(t)$ we could get
-\y(t=t)}
+
+\sage{y(t=t)}
 
 
 \newpage
