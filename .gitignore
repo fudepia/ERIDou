@@ -1,6 +1,6 @@
 *.aux
 *.log
 *.out
-*.sagetex.sage.py
+*.sage.py
 *.sagetex.scmd
 *.sagetex.sout

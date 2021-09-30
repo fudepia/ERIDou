@@ -27,19 +27,22 @@ _st_.current_tex_line = 114
 _st_.blockbegin()
 try:
  result=[]
- [((abs(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, phi=0.4))<1e-12 and abs(res.rhs()(x=tan(phi)*hh)(h=2, theta=0.2, phi=0.4)-1)<1e-12) and result.append(res)) for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(phi)*hh==x, t)]
+ [((abs(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, phi=0.4))<1e-12 and
+  abs(res.rhs()(x=tan(phi)*hh)(h=2, theta=0.2, phi=0.4)-1)<1e-12) and
+  result.append(res))
+  for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(phi)*hh==x, t)]
  t=result[0].rhs() if len(result)==1 else None
 except:
- _st_.goboom(118)
+ _st_.goboom(121)
 _st_.blockend()
 try:
- _st_.current_tex_line = 121
+ _st_.current_tex_line = 124
  _st_.inline(0, latex(t))
 except:
- _st_.goboom(121)
+ _st_.goboom(124)
 try:
- _st_.current_tex_line = 125
+ _st_.current_tex_line = 128
  _st_.inline(1, latex(y(t=t)))
 except:
- _st_.goboom(125)
+ _st_.goboom(128)
 _st_.endofdoc()
