@@ -40,9 +40,4 @@ try:
  _st_.inline(0, latex(t))
 except:
  _st_.goboom(124)
-try:
- _st_.current_tex_line = 128
- _st_.inline(1, latex(y(t=t)))
-except:
- _st_.goboom(128)
 _st_.endofdoc()
