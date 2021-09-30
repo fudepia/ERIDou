@@ -38,6 +38,7 @@
 \usepackage{url}
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta}
+\usepackage{sagetex}
 
 %The author can find the documentation of additional supporting files from "http://www.ctan.org"
 
@@ -89,6 +90,37 @@ Now we can first confirm our path function is a function of $\theta_{in}, \theta
 P(\theta_{in}, \theta_{out}, h)=
 \end{equation}
 
+
+\section{Playing with Bezier Curve}
+First setup the environment
+\begin{sageblock}
+h, t=var("h t")
+hh=h/2
+theta, thetaprime=var("theta thetaprime")
+assume(h, "constant")
+assume(h>0)
+assume(0<theta, theta<pi/2)
+assume(0<thetaprime, thetaprime<pi/2)
+\end{sageblock}
+
+And now we could try to solve functions like $y(x)$ from parametric bezier curve:
+
+First we try to find $t(x)$
+\begin{sageverbatim}
+# Solving t(x)
+x, y=var("x y")
+assume(tan(theta)*hh*-1<=x, x<=tan(thetaprime)*hh)
+assume(0<=t, t<=1)
+for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(thetaprime)*hh==x, t):
+    print(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, thetaprime=0.4))
+    print(res.rhs()(x=tan(thetaprime)*hh)(h=2, theta=0.2, thetaprime=0.4))
+    print(res)
+    print()
+\end{sageverbatim}
+Where we get two solutions and only the first satisfied our assumptions, hence:
+\begin{sageblock}
+t(x)=(h*tan(theta) - sqrt(h^2*tan(theta)*tan(thetaprime) - 2*(h*tan(theta) - h*tan(thetaprime))*x))/(h*tan(theta) - h*tan(thetaprime))
+\end{sageblock}
 
 
 \newpage
