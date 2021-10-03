@@ -1,0 +1,29 @@
+﻿\usetikzlibrary{intersections}
+\begin{tikzpicture}
+\tikzstyle{every node}=[font=\fontsize{12}{12}\selectfont] %https://stackoverflow.com/a/56999818/8460574
+
+\coordinate (TL) at (-45,12);
+\coordinate (TR) at (45,12);
+\coordinate (BL) at (-20,-12);
+\coordinate (BR) at (20,-12);
+
+%\draw [help lines] (BL) grid (TR);
+
+\draw[opacity=0] (TL)--(TR);
+\draw[opacity=0] (BL)--(BR);
+%\node (Int) at (0, 0) {};
+\coordinate (Int) at (0, 0);
+\draw[->, opacity=0.4] (TL)--(Int);
+\draw[->, opacity=0.4] (Int)--(BR);
+\draw[color=red] (-45,0)--(45, 0)--node[above] {Ideal Interface}++(-60,0);
+
+\path[draw, name path = realPath] (TL)..controls(Int)..(BR);
+
+\coordinate (LL) at (-45,2);
+\coordinate (LR) at (45,2);
+\draw[color=violet, name path=Arb] (LL)--(LR)--node[above] {Arbritary}++(-45,0);
+\path [name intersections = {of = realPath and Arb, by = IntArb}];
+\node at (IntArb) {};
+\draw (IntArb)--(IntArb)++(0, 20);
+
+\end{tikzpicture}
