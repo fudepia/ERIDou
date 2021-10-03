@@ -68,6 +68,35 @@
 
 \maketitle
 
+\section{Differential Analytic}
+
+Let the ray inbound from upper toward lower and refracs at origin. Let $\theta(y)$ be the acute angle between the velocity vector at that instant and the y-axis.
+
+Let $y=P(x)$ be the path light actually taken, now our goal is to solve $P(x)$ and also the function of speed of light within specific y $v(y)=v(P(x))$.
+
+\begin{equation}
+    \lim_{\Delta x\to 0}
+    \frac{\sin\theta(P(x))}{\sin(P(x+\Delta x))}=\frac{v(P(x))}{v(P(x+\Delta x))}
+\end{equation}
+
+\begin{equation}
+    \lim_{\Delta y\to 0}
+    \frac{\sin\theta(y)}{\sin(y+\Delta y)}=\frac{v(y)}{v(y+\Delta y)}
+\end{equation}
+
+\begin{equation}
+    \lim_{r\to 0}
+    \frac{\sin\theta(y)}{\sin\left(\theta(y)+r\theta'(y)\right)}=
+    \frac{v(y)}{v(y)+rv'(y)}
+\end{equation}
+\begin{equation}
+    \lim_{r\to 0}
+    {\sin\theta(y)}{v(y)+rv'(y)}=
+    {v(y)}{\sin\left(\theta(y)+r\theta'(y)\right)}
+\end{equation}
+
+\newpage
+
 \section{Setup}
 
 Let $\Delta$ be the total width the light travels with path not being straight, hence:
