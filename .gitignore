@@ -4,3 +4,4 @@
 *.sage.py
 *.sagetex.scmd
 *.sagetex.sout
+*.dvi

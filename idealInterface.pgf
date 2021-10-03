@@ -1,29 +1,65 @@
-﻿\usetikzlibrary{intersections}
-\begin{tikzpicture}
+﻿\usetikzlibrary{intersections, calc, angles, quotes}
+\begin{tikzpicture}[scale=.2]
 \tikzstyle{every node}=[font=\fontsize{12}{12}\selectfont] %https://stackoverflow.com/a/56999818/8460574
 
-\coordinate (TL) at (-45,12);
-\coordinate (TR) at (45,12);
-\coordinate (BL) at (-20,-12);
-\coordinate (BR) at (20,-12);
+% User Choice
+\coordinate (ArbChoice) at (0,2);
+% Boundary/Frame
+\coordinate (L) at (-45,0);
+\coordinate (R) at (45,0);
+\coordinate (Li) at (-20,0);
+\coordinate (Ri) at (20,0);
+\coordinate (T) at (0,12);
+\coordinate (B) at (0, -12);
+\coordinate (TL) at ($(T)+(L)$);
+\coordinate (TR) at ($(T)+(R)$);
+\coordinate (BL) at ($(B)+(Li)$);
+\coordinate (BR) at ($(B)+(Ri)$);
 
-%\draw [help lines] (BL) grid (TR);
+% https://tex.stackexchange.com/a/18201/238638
+\pgfdeclarelayer{bg}    % declare background layer
+\pgfsetlayers{bg,main}  % set the order of the layers (main is the standard layer)
+\begin{pgfonlayer}{bg}
+\path[draw, ->, thick, name path=xAxis] (L)--(R) node[right]{$x$};
+\path[draw, ->, thick, name path=yAxis] (B)--(T) node[above]{$y$};
+\draw[help lines, color=gray!24, dashed] ($(B)+(L)$) grid (TR);
+\end{pgfonlayer}
+
 
 \draw[opacity=0] (TL)--(TR);
 \draw[opacity=0] (BL)--(BR);
 %\node (Int) at (0, 0) {};
 \coordinate (Int) at (0, 0);
-\draw[->, opacity=0.4] (TL)--(Int);
-\draw[->, opacity=0.4] (Int)--(BR);
-\draw[color=red] (-45,0)--(45, 0)--node[above] {Ideal Interface}++(-60,0);
+\path[draw, name path = idealPath, color=red, opacity=0.7] (TL)--(Int)--(BR);
+%\draw[color=red] (-45,0)--(45, 0)--node[above] {Ideal Interface}++(-60,0);
 
 \path[draw, name path = realPath] (TL)..controls(Int)..(BR);
 
-\coordinate (LL) at (-45,2);
-\coordinate (LR) at (45,2);
-\draw[color=violet, name path=Arb] (LL)--(LR)--node[above] {Arbritary}++(-45,0);
-\path [name intersections = {of = realPath and Arb, by = IntArb}];
-\node at (IntArb) {};
-\draw (IntArb)--(IntArb)++(0, 20);
+
+\def\arbY{%
+4, 0, -5
+}
+\edef\prevInt{TL};
+\foreach \y [count=\i] in \arbY {
+	\draw[color=blue, name path=Arb\i, opacity=0.5, dashed] ($(L)+(0, \y)$)--($(R)+(0, \y)$);
+	\path [name intersections = {of = realPath and Arb\i, by = IntArb\i}];
+	\draw[color=violet, name path=dArb\i, opacity=0] ($(0, \y)+(-45,-.020)$)--($(0, \y)+(45,-.020)$);
+	\path [name intersections = {of = realPath and dArb\i, by = dIntArb\i}];
+	\draw[color=violet, name path=duArb\i, opacity=0] ($(0, \y)+(-45,.020)$)--($(0, \y)+(45,.020)$);
+	\path [name intersections = {of = realPath and duArb\i, by = duIntArb\i}];
+	\draw (IntArb\i) -- ++(0,1.2) node (IntArbU\i) {};
+	\draw (IntArb\i) -- ++(0,-1.2) node (IntArbD\i) {};
+	\def\a{\pgfmathparse{\i*2-1}\pgfmathprintnumber{\pgfmathresult}};
+	\def\b{\pgfmathparse{\i*2}\pgfmathprintnumber{\pgfmathresult}};
+	\def\previ{\pgfmathparse{\i-1}\pgfmathprintnumber{\pgfmathresult}};
+	\pic [draw, <->, "$\theta_{\a}$", angle eccentricity=1.5] {angle = IntArbU\i--IntArb\i--duIntArb\i}; % https://tex.stackexchange.com/a/219039/238638
+	\pic [draw, <->, "$\theta_{\b}$", angle eccentricity=1.5] {angle = IntArbD\i--IntArb\i--dIntArb\i};
+	% Discrete Arbritary Path
+    \path[draw, color=blue] (\prevInt)--(IntArb\i);
+	\xdef\prevInt{IntArb\i};
+}
+\path[draw, color=blue] (\prevInt)--(BR);
+%--node[above] {Arbritary}++(-100,0);
+
 
 \end{tikzpicture}
