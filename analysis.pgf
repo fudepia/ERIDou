@@ -1,0 +1,21 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\begin{document}
+\begin{tikzpicture}
+\def\h{2}
+\pgfmathsetmacro\hh{\h/2}
+\def\maxThetaIn{pi/3}
+\begin{axis}[
+        title={(const b)},
+        view={0}{90},
+        axis lines=center,
+        ticks=none,
+        xmin=-tan(deg(\maxThetaIn))*\hh, xmax=tan(deg(\maxThetaIn))*\hh, ymin=0, ymax=pi/4, zmin=-\hh, zmax=\hh,
+        xlabel=$x$, ylabel=$\theta_{in}$, zlabel=$y: P(x)$
+      ]
+      %
+\addplot3 [domain=0:pi/2,samples y=1] (tan(deg(x)),x,\hh);
+    \end{axis}
+\end{tikzpicture}
+\end{document}
