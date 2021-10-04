@@ -3,9 +3,13 @@
 \pgfplotsset{compat=1.16}
 \begin{document}
 \begin{tikzpicture}
+% vin>vout
+\def\vin{0.4}
+\def\vout{0.2}
 \def\h{2}
 \pgfmathsetmacro\hh{\h/2}
-\def\maxThetaIn{pi/3}
+\edef\plotmargin{0.20}
+\pgfmathsetmacro\maxThetaIn{asin(vout/vin)}
 \begin{axis}[
         title={(const b)},
         view={0}{90},
@@ -15,7 +19,8 @@
         xlabel=$x$, ylabel=$\theta_{in}$, zlabel=$y: P(x)$
       ]
       %
-\addplot3 [domain=0:pi/2,samples y=1] (tan(deg(x)),x,\hh);
+\addplot3 [domain=0:\maxThetaIn,samples y=1] (-\hh*tan(deg(x)),x,\hh);
+\addplot3 [domain=0:pi/2,samples y=1] (\hh*tan(deg(sin(deg(x))*vout/vin)),x,-\hh);
     \end{axis}
 \end{tikzpicture}
 \end{document}
