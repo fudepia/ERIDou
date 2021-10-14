@@ -127,8 +127,17 @@ Now we can first confirm our path function is a function of $\theta_{in}, \theta
 P(\theta_{in}, \theta_{out}, h)=
 \end{equation}
 
+\section{Continuous Geometric Mean}
+\begin{equation}
+v(x)=
+\begin{cases}
+a, & x<-\hbar \\
+b, & x>\hbar \\
+a(\frac{b}{a})^{\frac{x-(-\hbar)}{h}} & \text{otherwise}
+\end{cases}
+\end{equation}
 
-\section{Playing with Bezier Curve}
+\section{Playing with Bezier Curve (failed)}
 First setup the environment
 \begin{sageblock}
 h, t=var("h t")
