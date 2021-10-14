@@ -131,48 +131,11 @@ P(\theta_{in}, \theta_{out}, h)=
 \begin{equation}
 v(x)=
 \begin{cases}
-a, & x<-\hbar \\
-b, & x>\hbar \\
-a(\frac{b}{a})^{\frac{x-(-\hbar)}{h}} & \text{otherwise}
+a, & x<-\frac{h}{2} \\
+b, & x>\frac{h}{2} \\
+a\sqrt[h]{(\frac{b}{a})^{\left(x+\frac{h}{2}\right)}} & \text{otherwise}
 \end{cases}
 \end{equation}
-
-\section{Playing with Bezier Curve (failed)}
-First setup the environment
-\begin{sageblock}
-h, t=var("h t")
-hh=h/2
-theta=var("theta")
-tprime=var("tprime", latex_name=r"\theta^\prime")
-assume(h, "constant")
-assume(h>0)
-assume(0<theta, theta<pi/2)
-assume(0<tprime, tprime<pi/2)
-\end{sageblock}
-
-And now we could try to solve functions like $y(x)$ from parametric bezier curve:
-
-\begin{sageblock}
-# x(t)=(t-1)^2*tan(theta)*hh*-1+t^2*tan(tprime)*hh
-y=(t-1)^2*hh-t^2*hh
-\end{sageblock}
-
-First we try to find $t(x)$
-\begin{sageblock}
-result=[]    
-[((abs(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, tprime=0.4))<1e-12 and
- abs(res.rhs()(x=tan(tprime)*hh)(h=2, theta=0.2, tprime=0.4)-1)<1e-12) and
- result.append(res))
- for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(tprime)*hh==x, t)]
-t=result[0].rhs() if len(result)==1 else None
-\end{sageblock}
-Where we get two solutions and only one will satisfied our assumptions (the first print is $0$ and the second yields $1$\footnote{Here we use $EPS=1e-12$ as we're testing it with arbritarily chosen values which makes them no longer symbolic.}), which is:
-
-\[t(x)=\sage{t}\]
-
-And substituting back to $y(t)$ we could get
-
-%\[\sage{y(t=t)}\]
 
 \section{Analyzing}
 
@@ -340,6 +303,44 @@ Insert the Acknowledgment text here.
 \end{thebibliography}
 
 \appendix
+
+\section{Playing with Bezier Curve (failed)}
+First setup the environment
+\begin{sageblock}
+h, t=var("h t")
+hh=h/2
+theta=var("theta")
+tprime=var("tprime", latex_name=r"\theta^\prime")
+assume(h, "constant")
+assume(h>0)
+assume(0<theta, theta<pi/2)
+assume(0<tprime, tprime<pi/2)
+\end{sageblock}
+
+And now we could try to solve functions like $y(x)$ from parametric bezier curve:
+
+\begin{sageblock}
+# x(t)=(t-1)^2*tan(theta)*hh*-1+t^2*tan(tprime)*hh
+y=(t-1)^2*hh-t^2*hh
+\end{sageblock}
+
+First we try to find $t(x)$
+\begin{sageblock}
+result=[]    
+[((abs(res.rhs()(x=tan(theta)*hh*-1)(h=2, theta=0.2, tprime=0.4))<1e-12 and
+ abs(res.rhs()(x=tan(tprime)*hh)(h=2, theta=0.2, tprime=0.4)-1)<1e-12) and
+ result.append(res))
+ for res in solve((t-1)^2*tan(theta)*hh*-1+t^2*tan(tprime)*hh==x, t)]
+t=result[0].rhs() if len(result)==1 else None
+\end{sageblock}
+Where we get two solutions and only one will satisfied our assumptions (the first print is $0$ and the second yields $1$\footnote{Here we use $EPS=1e-12$ as we're testing it with arbritarily chosen values which makes them no longer symbolic.}), which is:
+
+\[t(x)=\sage{t}\]
+
+And substituting back to $y(t)$ we could get
+
+%\[\sage{y(t=t)}\]
+
 
 \section{Appendix head}
 
