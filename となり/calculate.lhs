@@ -21,7 +21,7 @@ So we know when
 
 
 > res::(Int->[(Double, Double)])->Double->[Double]
-> res f r=calcAvg (map ((calculate r).f) [2..4])
+> res f r=calcAvg (map ((calculate r).f) [12..24]) -- the array at the back is fractal depth
 
 > tellIfApproach::[Double]->Double
 > tellIfApproach = last.diff
