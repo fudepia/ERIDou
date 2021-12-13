@@ -5,3 +5,5 @@
 *.sagetex.scmd
 *.sagetex.sout
 *.dvi
+*.hi
+*.o
