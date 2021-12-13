@@ -1,4 +1,4 @@
-> module Calculate (res) where
+> module Calculate (res, tellIfApproach) where
 
 ---
 

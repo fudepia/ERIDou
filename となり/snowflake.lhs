@@ -1,14 +1,15 @@
 > import System.Environment
 > import System.Exit
 > import Geometric
-> import Calculate(res)
+> import Calculate
 
 
 > main = getArgs >>= parse
 > parse ["-h"] = usage   >> exit
+> parse ["-approach"] = sequence_ (map (\x -> print(tellIfApproach.(res snowflake)$x)) [1..])
 > parse [n]     = mainCode n
 
-> usage   = putStrLn "Usage: ./calculate [-vh] n"
+> usage   = putStrLn "Usage: ./calculate n"
 
 parse ["-v"] = version >> exit
 version = putStrLn "Haskell tac 0.1"
