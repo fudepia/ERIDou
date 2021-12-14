@@ -1,4 +1,9 @@
-> module Calculate (res, tellIfApproach) where
+Module Calculate
+
+> module Calculate where
+
+> import Control.Parallel.Strategies
+> import Data.List
 
 ---
 
@@ -7,7 +12,7 @@ Now our analysis will plot (x,y,z)=(radius, points, fractalDepth), with x-y plan
 > encapPoints::Double->[(Double, Double)]->Int
 > encapPoints r n=sum $ map fromEnum (map (\(x,y)->(x*x+y*y)<(r*r)) n)
 > calculate::Double->[(Double, Double)]->Double
-> calculate r n = fromIntegral(encapPoints r n)/r
+> calculate r pts = fromIntegral(encapPoints r pts)/r
 
 ---
 
@@ -20,11 +25,40 @@ So we know when
 
 
 
-> res::(Int->[(Double, Double)])->Double->[Double]
-> res f r=calcAvg (map ((calculate r).f) [12..24]) -- the array at the back is fractal depth
+> res::(Int->[(Double, Double)])->Int->Double->[Double]
+> res f depth r=calcAvg (map ((calculate r).f) [1..depth])
+
+Where `f` is a fractal generating function which takes `depth` as argument.
 
 > tellIfApproach::[Double]->Double
 > tellIfApproach = last.diff
+
+---
+
+Outputing data
+
+dump snowflake   12          12
+     ^generator  ^maxDepth   ^max radius
+
+> dumpDepth:: (Int->[(Double, Double)])->Double->Int->[String]
+> dumpDepth f mr depth = do {
+>         (map (\r -> 
+>             (
+>                 (show depth)++", "++(show r)++", "++
+>                 (show.last.(res f depth)$r)
+>             )
+>         ) [1..mr])
+> }
+> dump:: (Int->[(Double, Double)])->Double->Int->IO()
+> dump f mr mDepth = do {
+>     putStrLn("# snowflake");
+>     putStrLn("depth, r, res");
+>     sequence_ (map (putStrLn.(intercalate "\n"))
+>         ((map (\d -> 
+>             dumpDepth f mr d
+>         ) [1..mDepth]) `using` parList rdeepseq)
+>     );
+> }
 
 ---
 

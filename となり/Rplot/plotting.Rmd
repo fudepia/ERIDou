@@ -1,0 +1,22 @@
+---
+title: "plotting"
+output: pdf_document
+---
+
+```{r}
+d<-read.csv("../data.csv")
+```
+
+```{r}
+library("car")
+```
+
+```{r}
+y<-log(d$res)
+x<-d$r
+z<-d$depth
+```
+
+```{r}
+scatter3d(x,y,z, surface=FALSE)
+```
