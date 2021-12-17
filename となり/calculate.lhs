@@ -26,8 +26,12 @@ So we know when
 
 
 
+> resPreManip::(Int->[(Double, Double)])->Int->Double->[Double]
+> resPreManip f depth r=calcAvg (map ((calculate r).f) [1..depth])
+> resManip::Int->Double->Double->Double
+> resManip depth r x = depth `root` x
 > res::(Int->[(Double, Double)])->Int->Double->[Double]
-> res f depth r=calcAvg (map ((calculate r).f) [1..depth])
+> res f depth r = map (resManip depth r) (resPreManip f depth r)
 
 Where `f` is a fractal generating function which takes `depth` as argument.
 
@@ -76,3 +80,6 @@ Analytic Functions
 > calcAvg::[Double]->[Double]
 > calcAvg = (map (\(i, s)->s/i)).attachId1.(scanl1 (+))
 > attachId1 = zip [1..]
+
+> root::Int->Double->Double
+> n `root` x = x**(recip.fromIntegral$n)
