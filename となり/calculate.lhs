@@ -4,6 +4,7 @@ Module Calculate
 
 > import Control.Parallel.Strategies
 > import Data.List
+> import System.IO
 
 ---
 
@@ -38,7 +39,7 @@ Where `f` is a fractal generating function which takes `depth` as argument.
 Outputing data
 
 dump snowflake   12          12
-     ^generator  ^maxDepth   ^max radius
+     ^generator  ^maxRadius   ^maxDepth
 
 > dumpDepth:: (Int->[(Double, Double)])->Double->Int->[String]
 > dumpDepth f mr depth = do {
@@ -51,6 +52,7 @@ dump snowflake   12          12
 > }
 > dump:: (Int->[(Double, Double)])->Double->Int->IO()
 > dump f mr mDepth = do {
+>     hSetBuffering stdout LineBuffering;
 >     putStrLn("# snowflake");
 >     putStrLn("depth, r, res");
 >     sequence_ (map (putStrLn.(intercalate "\n"))
