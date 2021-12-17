@@ -6,8 +6,6 @@
 
 > main::IO()
 
-main = dump vonKoch 4 12
-
 > main = getArgs >>= parse
 
 > parse ["-h"] = usage   >> exit
@@ -21,8 +19,8 @@ parse ["--approach", s] = do {putStrLn("# dr\nval, approach-ness");sequence_ (ma
     )) [1..n])}
     where n = read s :: Double
 
-> parse ["--approach", mrS] = dump vonKoch mr 12 where mr = read mrS::Double
-> parse ["--approach", mrS, mdS]= dump vonKoch mr md where {mr = read mrS::Double; md=read mdS::Int}
+> parse ["--approach", mrS] = dump vonKoch 12 mr where mr = read mrS::Double
+> parse ["--approach", mdS, mrS]= dump vonKoch md mr where {mr = read mrS::Double; md=read mdS::Int}
 > parse [n]     = mainCode n
 
 > usage   = putStrLn "Usage: ./vonKoch [--approach] n\nAdd --approach flag to print out in csv format with the additional approach-ness data."

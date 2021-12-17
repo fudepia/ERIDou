@@ -43,10 +43,10 @@ Where `f` is a fractal generating function which takes `depth` as argument.
 Outputing data
 
 dump snowflake   12          12
-     ^generator  ^maxRadius   ^maxDepth
+     ^generator  ^maxDepth   ^maxRadius
 
-> dumpDepth:: (Int->[(Double, Double)])->Double->Int->[String]
-> dumpDepth f mr depth = do {
+> dumpDepth:: (Int->[(Double, Double)])->Int->Double->[String]
+> dumpDepth f depth mr = do {
 >         (map (\r -> 
 >             (
 >                 (show depth)++", "++(show r)++", "++
@@ -54,14 +54,14 @@ dump snowflake   12          12
 >             )
 >         ) [1..mr])
 > }
-> dump:: (Int->[(Double, Double)])->Double->Int->IO()
-> dump f mr mDepth = do {
+> dump:: (Int->[(Double, Double)])->Int->Double->IO()
+> dump f mDepth mr = do {
 >     hSetBuffering stdout LineBuffering;
 >     putStrLn("# snowflake");
 >     putStrLn("depth, r, res");
 >     sequence_ (map (putStrLn.(intercalate "\n"))
 >         ((map (\d -> 
->             dumpDepth f mr d
+>             dumpDepth f d mr
 >         ) [1..mDepth]) `using` parList rdeepseq)
 >     );
 > }
