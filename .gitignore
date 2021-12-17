@@ -9,3 +9,5 @@
 *.o
 となり/Rplot/.RData
 となり/Rplot/.Rhistory
+となり/snowflake
+*res
