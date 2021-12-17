@@ -4,7 +4,7 @@ output: pdf_document
 ---
 
 ```{r}
-d<-read.csv("../data.csv")
+d<-read.csv("../res", skip=1)
 ```
 
 ```{r}
@@ -12,11 +12,12 @@ library("car")
 ```
 
 ```{r}
-y<-log(d$res)
+y<-(d$res)^(1/(d$depth))
 x<-d$r
 z<-d$depth
 ```
 
 ```{r}
 scatter3d(x,y,z, surface=FALSE)
+show(y)
 ```
