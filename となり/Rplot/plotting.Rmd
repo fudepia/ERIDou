@@ -4,7 +4,8 @@ output: pdf_document
 ---
 
 ```{r}
-d<-read.csv("../res", skip=1)
+#d<-read.csv("../res4", skip=1)
+d<-read.csv("../resMinkowskiSausage", skip=1)
 ```
 
 ```{r}
@@ -12,7 +13,8 @@ library("car")
 ```
 
 ```{r}
-y<-(d$res)^(1/(d$depth))
+#y<-(d$res)^(1/(d$depth))
+y<-d$res
 x<-d$r
 z<-d$depth
 ```
