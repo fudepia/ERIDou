@@ -11,7 +11,7 @@ Module Calculate
 Now our analysis will plot (x,y,z)=(radius, points, fractalDepth), with x-y plane facing us and z-Axis pointing into the screen.
 
 > encapPoints::Double->[(Double, Double)]->Int
-> encapPoints r n=sum $ map fromEnum (map (\(x,y)->(x*x+y*y)<(r*r)) n)
+> encapPoints r n=sum $ map fromEnum ((map (\(x,y)->(x*x+y*y)<(r*r)) n) `using` parList rdeepseq)
 > calculate::Double->[(Double, Double)]->Double
 > calculate r pts = fromIntegral(encapPoints r pts)/r
 
@@ -27,11 +27,11 @@ So we know when
 
 
 > resPreManip::(Int->[(Double, Double)])->Int->Double->[Double]
-> resPreManip f depth r=calcAvg (map ((calculate r).f) [1..depth])
+> resPreManip f depth r=calcAvg ((map ((calculate r).f) [1..depth]) `using` parList rdeepseq)
 > resManip::Int->Double->Double->Double
 > resManip depth r x = depth `root` x
 > res::(Int->[(Double, Double)])->Int->Double->[Double]
-> res f depth r = map (resManip depth r) (resPreManip f depth r)
+> res f depth r = (map (resManip depth r) (resPreManip f depth r)) `using` parList rdeepseq
 
 Where `f` is a fractal generating function which takes `depth` as argument.
 
@@ -62,7 +62,17 @@ dump snowflake   12          12
 >     sequence_ (map (putStrLn.(intercalate "\n"))
 >         ((map (\d -> 
 >             dumpDepth f d mr
->         ) [1..mDepth]) `using` parList rdeepseq)
+>         ) [1..mDepth]))
+>     );
+> }
+> resumeDump:: (Int->[(Double, Double)])->Int->Int->Double->IO()
+> resumeDump f rd mDepth mr = do {
+>     --hSetBuffering stdout LineBuffering;
+>     hSetBuffering stdout NoBuffering;
+>     sequence_ (map (putStrLn.(intercalate "\n"))
+>         ((map (\d -> 
+>             dumpDepth f d mr
+>         ) [rd..mDepth]))
 >     );
 > }
 

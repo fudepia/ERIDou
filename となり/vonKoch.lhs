@@ -21,19 +21,21 @@ parse ["--approach", s] = do {putStrLn("# dr\nval, approach-ness");sequence_ (ma
 
 > parse ["--approach", mrS] = dump vonKoch 12 mr where mr = read mrS::Double
 > parse ["--approach", mdS, mrS]= dump vonKoch md mr where {mr = read mrS::Double; md=read mdS::Int}
-> parse [n]     = mainCode n
+> parse ["--approach", mdS, mrS, "--resume", rdS]= resumeDump vonKoch rd md mr where {mr = read mrS::Double; md=read mdS::Int; rd=read rdS::Int}
+> parse [d, r] = mainCode d r
+> parse [r]     = mainCode "4" r
 
 > usage   = putStrLn "Usage: ./vonKoch [--approach] n\nAdd --approach flag to print out in csv format with the additional approach-ness data."
 
 > exit    = exitWith ExitSuccess
 > die     = exitWith (ExitFailure 1)
 
-> mainCode::String->IO()
-> mainCode s =do
->     print("Default depth=12")
->     print(last.(res vonKoch 12)$x)
+> mainCode::String->String->IO()
+> mainCode ds rs =do
+>     print("Default depth=4")
+>     print(last.(res vonKoch d)$r)
 >     --print(tellIfApproach.(res vonKoch)$x)
->     where x=read s :: Double
+>     where {r=read rs :: Double; d=read ds :: Int}
 
 ---
 
